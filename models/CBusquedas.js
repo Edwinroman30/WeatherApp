@@ -9,6 +9,14 @@ class Busqueda{
         this.history = ['Santo Domingo','Valencia','Berlin','New brunswick'];
     }
 
+    //To use global params at time to use the same API.
+    mapBoxParams(){
+        return {
+            'access_token' : 'pk.eyJ1IjoiZ3VpbGxvMTgyMSIsImEiOiJja25ubjE2Mm0xMDl4MnZsdDN6NW5pb3NvIn0.iTeoxjoJq_kdptfeKrLGsw',
+            'limit': 5
+        }
+    }
+
 
     async searchPlace(site = ''){
 
@@ -16,9 +24,16 @@ class Busqueda{
 
         try {
             
-            const resp = await axios.get('https://reqres.in/api/users?page=2#');
+            const instances = axios.create({
+                baseURL : `https://api.mapbox.com/geocoding/v5/mapbox.places/${site}.json`,
+                params: this.mapBoxParams()
+            });
             
-            return resp.data;
+            const resp = await instances.get();
+
+            console.log(resp.data);
+
+            return resp;
 
         } catch (error) {
             
