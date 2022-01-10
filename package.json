@@ -1,0 +1,24 @@
+{
+  "name": "weatherapp",
+  "version": "1.0.0",
+  "description": "It's a NODE.js console application to know about weather conditions in certain places, that it carry out through APIs.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Edwinroman30/WeatherApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Edwinroman30/WeatherApp/issues"
+  },
+  "homepage": "https://github.com/Edwinroman30/WeatherApp#readme",
+  "dependencies": {
+    "colors": "^1.4.2",
+    "inquirer": "^8.2.0"
+  }
+}
