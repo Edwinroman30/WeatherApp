@@ -64,12 +64,34 @@ const questioning = async (message) =>{
     }
 
     return await inquirer.prompt(questionStructure);
-} 
+}
+
+const listingItems = async ( arrPlaces = [] ) =>{
+
+    const choices = arrPlaces.map( (place) => {
+        return { value: place.id, name: place.placeName } 
+    });
+    
+    choices.push( {value: 0, name: 'Cancel.'} );
+
+    const options = {
+        type: 'list',
+        name: 'id',
+        message: 'Choose the right places:',
+        choices: choices,
+        loop: false
+    }
+
+    return  await inquirer.prompt(options);
+
+}
+
 
 
 
 module.exports = {
     menuInquirer,
     pausaInquirer,
-    questioning
+    questioning,
+    listingItems
 };
