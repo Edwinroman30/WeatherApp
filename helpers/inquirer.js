@@ -45,10 +45,31 @@ const pausaInquirer = async () =>{
     return resp;
 }
 
+const questioning = async (message) =>{
+
+    const questionStructure = {
+        type: 'input',
+        name: 'answare',
+        message,
+        validate(input){
+
+            if(input.length === 0){
+                return 'Error: Debe de digital un valor...';
+            }
+            else{
+                return true
+            }
+        }
+
+    }
+
+    return await inquirer.prompt(questionStructure);
+} 
 
 
 
 module.exports = {
     menuInquirer,
-    pausaInquirer
+    pausaInquirer,
+    questioning
 };
