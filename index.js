@@ -1,4 +1,4 @@
-const {menuInquirer, pausaInquirer, questioning} = require('./helpers/inquirer'); 
+const {menuInquirer, pausaInquirer, questioning, listingItems} = require('./helpers/inquirer'); 
 const CBusquedas = require('./models/CBusquedas');
 
 const Main = async () =>{
@@ -18,20 +18,34 @@ const Main = async () =>{
                 const {answare} = await questioning('Type the city you wish: ');
 
                 //Choose the right/ place you wish.
-                const resp = await busqueda.searchPlace( answare );
-                //console.log(`\n  ${resp}  \n`);
+                const places = await busqueda.searchPlace( answare );
 
-                //Temperature
+                //Valition
+                if(places.length === 0){
+                    console.error('The City was not found...')
+                }
+                else
+                {
 
-                //Show the information about it:
-                console.log(`\nInformation about ${answare}\n`);
-                console.log(`City name: {}`);
-                console.log(`Long: {}`);
-                console.log(`Lat: {}`);
-                console.log(`Temperature: {}`);
-                console.log(`Max: {}`);
-                console.log(`Min: {}`);
-                
+                    const {id} = await listingItems(places);
+                    
+                    
+                    //Filter the exact place (id) select in the groups of places.
+                    const placeMatched = places.find( place => place.id === id );
+
+                    //Temperature
+
+                    //Show the information about it:
+                    console.log(`\nInformation about: ${answare}\n`);
+                    console.log(`City name: ${placeMatched.placeName}`);
+                    console.log(`Long: ${placeMatched.long}`);
+                    console.log(`Lat: ${placeMatched.latt}`);
+                    console.log(`Temperature: {}`);
+                    console.log(`Max: {}`);
+                    console.log(`Min: {}`);
+                    
+                }
+
                 break;
 
             case 2:
