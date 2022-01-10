@@ -1,3 +1,4 @@
+require('dotenv').config();
 const axios = require('axios').default;
 
 class Busqueda{
@@ -12,7 +13,7 @@ class Busqueda{
     //To use global params at time to use the same API.
     mapBoxParams(){
         return {
-            'access_token' : 'pk.eyJ1IjoiZ3VpbGxvMTgyMSIsImEiOiJja25ubjE2Mm0xMDl4MnZsdDN6NW5pb3NvIn0.iTeoxjoJq_kdptfeKrLGsw',
+            'access_token' : process.env.ACCESS_TOKEN, //* TOKEN EN VARIABLES DE ENTORNO
             'limit': 5
         }
     }
