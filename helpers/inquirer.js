@@ -8,11 +8,11 @@ const questions = {
     choices: [
         {
             value: 1,
-            name: `${'(1)'} Crear una tarea.`
+            name: `${'(1)'} Busca una ciudad.`
         },
         {
             value: 2,
-            name: `${'(2)'} Listas de tareas.`
+            name: `${'(2)'} Historial de busqueda.`
         },
         {
             value: 0,
@@ -35,6 +35,7 @@ const menuInquirer = async () =>{
 }
 
 const pausaInquirer = async () =>{
+
     const resp = await inquirer.prompt({
         type: 'input',
         name: 'Enter',
