@@ -27,13 +27,17 @@ const Main = async () =>{
                 else
                 {
 
+                    
                     const {id} = await listingItems(places);
                     
                     if(id != 0){
-                            
-                            //Filter the exact place (id) select in the groups of places.
-                            const placeMatched = places.find( place => place.id === id );
-        
+                        
+                        //Filter the exact place (id) select in the groups of places.
+                        const placeMatched = places.find( place => place.id === id );
+                        
+                        //Saving history
+                        busqueda.saveHistory( placeMatched.placeName );
+
                             //Getting Temperature
                             const weather = await busqueda.getWeather(placeMatched.long, placeMatched.latt);
         
@@ -53,6 +57,9 @@ const Main = async () =>{
                 break;
 
             case 2:
+                busqueda.history.forEach( (place, indx) => {
+                    console.log(`  ${indx + 1}) ${place} `);
+                });
                 break;
         }
 
