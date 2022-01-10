@@ -1,13 +1,16 @@
+const fs = require('fs');
 require('dotenv').config();
 const axios = require('axios').default;
+
 
 class Busqueda{
 
     history = [];
+    dbPath = './db/database.json';
 
     constructor(){
-        // TODO - Loads data from origin if exists. 
-        this.history = ['Santo Domingo','Valencia','Berlin','New brunswick'];
+        //*Loads data from origin if exists. 
+        this.dbLoadData();
     }
 
     //To use global params at time to use the same API.
@@ -85,6 +88,50 @@ class Busqueda{
 
     }
 
+    saveHistory( place = ''){
+
+        if( this.history.includes( place.toLocaleLowerCase() ) ){
+            return;
+        }
+        else{
+            //Save local
+            this.history.unshift( place.toLocaleLowerCase() );
+
+            //Save in DB
+            this.dbSaving();
+        }
+    }
+
+    dbSaving(){
+
+        //Just format the array to an object.
+        const payload = {
+            historial : this.history
+        }
+
+        //Override the file to save data.
+        fs.writeFileSync( this.dbPath, JSON.stringify( payload ) );
+    }
+
+    dbLoadData(){
+
+        //Check if data exists:
+        if(fs.existsSync(this.dbPath)){
+            const data = fs.readFileSync(this.dbPath, {encoding:'utf8'});
+            this.history = JSON.parse(data).historial;
+        }
+
+    }
+
+     get CapitalizeHistory(){
+
+        return this.history.map(places => { 
+            let words  = places.split(' ');
+            words = words.map(word => word[0].toUpperCase() + word.substring(1));
+            return words.join(' ');   
+        }); 
+
+    } 
 
 }
 
