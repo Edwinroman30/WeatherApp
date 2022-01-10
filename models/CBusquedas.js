@@ -30,11 +30,19 @@ class Busqueda{
                 params: this.mapBoxParams()
             });
             
-            const resp = await instances.get();
+            //Getting the data from the api
+            const places = await instances.get();
 
-            console.log(resp.data);
+            //Filting the data we want to show.
+            return places.data.features.map( (data) => ({
 
-            return resp;
+                id: data.id,
+                placeName: data.place_name,
+                long: data.center[0],
+                latt: data.center[1]
+
+            }));
+            
 
         } catch (error) {
             
