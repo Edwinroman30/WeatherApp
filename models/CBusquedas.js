@@ -54,6 +54,38 @@ class Busqueda{
     }
 
 
+    async getWeather(long, latit) {
+
+        try{
+            
+            const instances = axios.create({
+                baseURL: `https://api.openweathermap.org/data/2.5/weather`,
+                params:  {
+                    'lat' : latit,
+                    'lon' : long,
+                    'appid' : process.env.OPENWEATHER_TOKEN,
+                    'units' : 'metric'
+                }
+            });
+    
+            const weatherData = await instances.get();
+            
+            return {
+                desc: weatherData.data.weather[0].description,
+                temp: weatherData.data.main.temp,
+                temp_min: weatherData.data.main.temp_min,
+                temp_max: weatherData.data.main.temp_max
+            }
+
+        }catch (error){
+
+            console.error(error);
+            return null;
+        }
+
+    }
+
+
 }
 
 module.exports = Busqueda;

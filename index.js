@@ -29,22 +29,26 @@ const Main = async () =>{
 
                     const {id} = await listingItems(places);
                     
-                    
-                    //Filter the exact place (id) select in the groups of places.
-                    const placeMatched = places.find( place => place.id === id );
-
-                    //Temperature
-
-                    //Show the information about it:
-                    console.log(`\nInformation about: ${answare}\n`);
-                    console.log(`City name: ${placeMatched.placeName}`);
-                    console.log(`Long: ${placeMatched.long}`);
-                    console.log(`Lat: ${placeMatched.latt}`);
-                    console.log(`Temperature: {}`);
-                    console.log(`Max: {}`);
-                    console.log(`Min: {}`);
-                    
-                }
+                    if(id != 0){
+                            
+                            //Filter the exact place (id) select in the groups of places.
+                            const placeMatched = places.find( place => place.id === id );
+        
+                            //Getting Temperature
+                            const weather = await busqueda.getWeather(placeMatched.long, placeMatched.latt);
+        
+        
+                            //Show the information about it:
+                            console.log(`\nInformation about: ${answare}\n`);
+                            console.log(`City name: ${placeMatched.placeName}`);
+                            console.log(`Long: ${placeMatched.long}`);
+                            console.log(`Lat: ${placeMatched.latt}`);
+                            console.log(`Temperature: ${weather.temp}`);
+                            console.log(`Max: ${weather.temp_max}`);
+                            console.log(`Min: ${weather.temp_min}`);
+                            console.log(`Weather condition: ${weather.desc}`);
+                        }
+                    }
 
                 break;
 
